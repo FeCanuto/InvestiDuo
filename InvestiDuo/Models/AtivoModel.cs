@@ -18,6 +18,8 @@ namespace InvestiDuo.Models
         private decimal total;
         private DateTime date;
 
+        [DisplayName("Id")]
+        [Required(ErrorMessage = "Id of asset is required.")]
         public int Id { get => id; set => id = value; }
 
         [StringLength(50)]
