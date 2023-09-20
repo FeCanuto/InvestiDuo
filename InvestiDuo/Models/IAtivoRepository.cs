@@ -12,6 +12,6 @@ namespace InvestiDuo.Models
         void Edit();
         void Delete();
         IEnumerable<AtivoModel> GetAll();
-        IEnumerable<AtivoModel> GetByValue();
+        IEnumerable<AtivoModel> GetByValue(string value);
     }
 }
