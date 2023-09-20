@@ -13,7 +13,7 @@ namespace InvestiDuo.Views
         string? Ticket { get; set; }
         int Quantity { get; set; }
         decimal Value { get; set; }
-        decimal Total { get; set; }
+        decimal Total { get;}
         DateTime Date { get; set; }
 
         string SearchValue { get; set; }

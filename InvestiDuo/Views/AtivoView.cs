@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace InvestiDuo.Views
 {
-    public partial class AtivoView : Form
+    public partial class AtivoView : Form, IAtivoView
     {
         private IContainer components;
         private ToolStripMenuItem ArquivoToolStripMenuItem;
@@ -20,62 +20,120 @@ namespace InvestiDuo.Views
         private Button CancelButton;
         private Button EditButton;
         private Button AddButton;
-        private Button button1;
-        private TextBox textBox1;
-        private DataGridView dataGridView1;
+        private Button BuscarButton;
+        private TextBox searchBox;
+        private DataGridView dataGridView;
         private Label BuscarLabel;
-        private Label label5;
-        private Label label4;
-        private Label label3;
-        private Label label2;
-        private Label label1;
-        private TextBox textBox6;
+        private Label valorLabel;
+        private Label quantityLabel;
+        private Label ticketLabel;
+        private Label empresaLabel;
+        private Label idLabel;
+        private Label dataLabel;
+        private Label totalLabel;
+        private TextBox totalBox;
         private TextBox textBox5;
-        private TextBox textBox4;
-        private TextBox textBox3;
-        private TextBox textBox2;
+        private TextBox ticketBox;
         private Button button3;
         private Button button2;
         private MenuStrip menuStrip1;
+        private DateTimePicker dateTimePicker;
+        private DateTime date;
+        private bool isSucessful;
+        private bool isEdit;
+        private string message;
+        private string searchValue;
+        private string? ticket;
+        private decimal total;
+        private decimal valor;
+        private int quantity;
+        private NumericUpDown valorUpDown;
+        private NumericUpDown quantidadeUpDown;
+        private NumericUpDown numericUpDown1;
+        private int id;
+
+        public event EventHandler SearchEvent;
+        public event EventHandler AddEvent;
+        public event EventHandler EditEvent;
+        public event EventHandler DeleteEvent;
+        public event EventHandler SaveEvent;
+        public event EventHandler CancelEvent;
 
         public AtivoView()
         {
            InitializeComponent();
+           AssociateAndRaiseViewEvents();
+           //btnClose.Click += delegate { this.Close(); };
         }
+
+        private void AssociateAndRaiseViewEvents()
+        {
+            BuscarButton.Click += delegate { SearchEvent?.Invoke(this, EventArgs.Empty); };
+            searchBox.KeyDown += (s, e) =>
+            {
+                if (e.KeyCode == Keys.Enter)
+                    SearchEvent?.Invoke(this, EventArgs.Empty);
+            };
+        }
+
+        private void BuscarButton_Click(object? sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int Id { get => id; set => id = value; }
+        public int Quantity { get => (int)quantidadeUpDown.Value; set => quantidadeUpDown.Value = value; }
+        public decimal Value { get => valorUpDown.Value; set => valorUpDown.Value = value; }
+        public decimal Total { get => decimal.Parse(totalBox.Text); }
+        public DateTime Date { get => dateTimePicker.Value; set => dateTimePicker.Value = value; }
+        public string SearchValue { get => searchBox.Text; set => searchBox.Text = value; }
+        public string Message { get => message; set => message = value; }
+        public string? Ticket { get => ticketBox.Text; set => ticketBox.Text = value; }
+        public bool IsEdit { get => isEdit; set => isEdit = value; }
+        public bool IsSucessful { get => isSucessful; set => isSucessful = value; }
+        
+
 
         private void InitializeComponent()
         {
             System.Windows.Forms.TabControl tabControl1;
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.searchBox = new System.Windows.Forms.TextBox();
+            this.dataGridView = new System.Windows.Forms.DataGridView();
+            this.BuscarLabel = new System.Windows.Forms.Label();
             this.CancelButton = new System.Windows.Forms.Button();
             this.EditButton = new System.Windows.Forms.Button();
             this.AddButton = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.BuscarButton = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.totalLabel = new System.Windows.Forms.Label();
+            this.totalBox = new System.Windows.Forms.TextBox();
+            this.dataLabel = new System.Windows.Forms.Label();
+            this.dateTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.valorLabel = new System.Windows.Forms.Label();
+            this.quantityLabel = new System.Windows.Forms.Label();
+            this.ticketLabel = new System.Windows.Forms.Label();
+            this.empresaLabel = new System.Windows.Forms.Label();
+            this.idLabel = new System.Windows.Forms.Label();
+            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.ticketBox = new System.Windows.Forms.TextBox();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.ArquivoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.detalhesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.BuscarLabel = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.textBox6 = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
+            this.quantidadeUpDown = new System.Windows.Forms.NumericUpDown();
+            this.valorUpDown = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             tabControl1 = new System.Windows.Forms.TabControl();
             tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.tabPage2.SuspendLayout();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.quantidadeUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.valorUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -90,13 +148,13 @@ namespace InvestiDuo.Views
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.textBox1);
-            this.tabPage1.Controls.Add(this.dataGridView1);
+            this.tabPage1.Controls.Add(this.searchBox);
+            this.tabPage1.Controls.Add(this.dataGridView);
             this.tabPage1.Controls.Add(this.BuscarLabel);
             this.tabPage1.Controls.Add(this.CancelButton);
             this.tabPage1.Controls.Add(this.EditButton);
             this.tabPage1.Controls.Add(this.AddButton);
-            this.tabPage1.Controls.Add(this.button1);
+            this.tabPage1.Controls.Add(this.BuscarButton);
             this.tabPage1.Location = new System.Drawing.Point(4, 24);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
@@ -104,6 +162,31 @@ namespace InvestiDuo.Views
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Ativos da carteira";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // searchBox
+            // 
+            this.searchBox.Location = new System.Drawing.Point(8, 31);
+            this.searchBox.Name = "searchBox";
+            this.searchBox.Size = new System.Drawing.Size(304, 23);
+            this.searchBox.TabIndex = 6;
+            // 
+            // dataGridView
+            // 
+            this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView.Location = new System.Drawing.Point(8, 60);
+            this.dataGridView.Name = "dataGridView";
+            this.dataGridView.RowTemplate.Height = 25;
+            this.dataGridView.Size = new System.Drawing.Size(556, 222);
+            this.dataGridView.TabIndex = 5;
+            // 
+            // BuscarLabel
+            // 
+            this.BuscarLabel.AutoSize = true;
+            this.BuscarLabel.Location = new System.Drawing.Point(8, 13);
+            this.BuscarLabel.Name = "BuscarLabel";
+            this.BuscarLabel.Size = new System.Drawing.Size(73, 15);
+            this.BuscarLabel.TabIndex = 4;
+            this.BuscarLabel.Text = "Buscar Ativo";
             // 
             // CancelButton
             // 
@@ -135,25 +218,29 @@ namespace InvestiDuo.Views
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(318, 31);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Buscar";
-            this.button1.UseVisualStyleBackColor = true;
+            this.BuscarButton.Location = new System.Drawing.Point(318, 31);
+            this.BuscarButton.Name = "button1";
+            this.BuscarButton.Size = new System.Drawing.Size(75, 23);
+            this.BuscarButton.TabIndex = 0;
+            this.BuscarButton.Text = "Buscar";
+            this.BuscarButton.UseVisualStyleBackColor = true;
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.label5);
-            this.tabPage2.Controls.Add(this.label4);
-            this.tabPage2.Controls.Add(this.label3);
-            this.tabPage2.Controls.Add(this.label2);
-            this.tabPage2.Controls.Add(this.label1);
-            this.tabPage2.Controls.Add(this.textBox6);
+            this.tabPage2.Controls.Add(this.numericUpDown1);
+            this.tabPage2.Controls.Add(this.valorUpDown);
+            this.tabPage2.Controls.Add(this.quantidadeUpDown);
+            this.tabPage2.Controls.Add(this.totalLabel);
+            this.tabPage2.Controls.Add(this.totalBox);
+            this.tabPage2.Controls.Add(this.dataLabel);
+            this.tabPage2.Controls.Add(this.dateTimePicker);
+            this.tabPage2.Controls.Add(this.valorLabel);
+            this.tabPage2.Controls.Add(this.quantityLabel);
+            this.tabPage2.Controls.Add(this.ticketLabel);
+            this.tabPage2.Controls.Add(this.empresaLabel);
+            this.tabPage2.Controls.Add(this.idLabel);
             this.tabPage2.Controls.Add(this.textBox5);
-            this.tabPage2.Controls.Add(this.textBox4);
-            this.tabPage2.Controls.Add(this.textBox3);
-            this.tabPage2.Controls.Add(this.textBox2);
+            this.tabPage2.Controls.Add(this.ticketBox);
             this.tabPage2.Controls.Add(this.button3);
             this.tabPage2.Controls.Add(this.button2);
             this.tabPage2.Location = new System.Drawing.Point(4, 24);
@@ -161,8 +248,119 @@ namespace InvestiDuo.Views
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(653, 289);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Adicionar Ativo";
+            this.tabPage2.Text = "Detalhes do ativo";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // totalLabel
+            // 
+            this.totalLabel.AutoSize = true;
+            this.totalLabel.Location = new System.Drawing.Point(270, 139);
+            this.totalLabel.Name = "totalLabel";
+            this.totalLabel.Size = new System.Drawing.Size(131, 15);
+            this.totalLabel.TabIndex = 15;
+            this.totalLabel.Text = "Total investido no Ativo";
+            // 
+            // totalBox
+            // 
+            this.totalBox.Location = new System.Drawing.Point(270, 157);
+            this.totalBox.Name = "totalBox";
+            this.totalBox.Size = new System.Drawing.Size(100, 23);
+            this.totalBox.TabIndex = 14;
+            this.totalBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TotalBox_KeyPress);
+            // 
+            // dataLabel
+            // 
+            this.dataLabel.AutoSize = true;
+            this.dataLabel.Location = new System.Drawing.Point(270, 75);
+            this.dataLabel.Name = "dataLabel";
+            this.dataLabel.Size = new System.Drawing.Size(31, 15);
+            this.dataLabel.TabIndex = 13;
+            this.dataLabel.Text = "Data";
+            // 
+            // dateTimePicker
+            // 
+            this.dateTimePicker.Location = new System.Drawing.Point(270, 93);
+            this.dateTimePicker.Name = "dateTimePicker";
+            this.dateTimePicker.Size = new System.Drawing.Size(247, 23);
+            this.dateTimePicker.TabIndex = 12;
+            // 
+            // valorLabel
+            // 
+            this.valorLabel.AutoSize = true;
+            this.valorLabel.Location = new System.Drawing.Point(139, 139);
+            this.valorLabel.Name = "valorLabel";
+            this.valorLabel.Size = new System.Drawing.Size(33, 15);
+            this.valorLabel.TabIndex = 11;
+            this.valorLabel.Text = "Valor";
+            // 
+            // quantityLabel
+            // 
+            this.quantityLabel.AutoSize = true;
+            this.quantityLabel.Location = new System.Drawing.Point(14, 139);
+            this.quantityLabel.Name = "quantityLabel";
+            this.quantityLabel.Size = new System.Drawing.Size(69, 15);
+            this.quantityLabel.TabIndex = 10;
+            this.quantityLabel.Text = "Quantidade";
+            // 
+            // ticketLabel
+            // 
+            this.ticketLabel.AutoSize = true;
+            this.ticketLabel.Location = new System.Drawing.Point(139, 75);
+            this.ticketLabel.Name = "ticketLabel";
+            this.ticketLabel.Size = new System.Drawing.Size(38, 15);
+            this.ticketLabel.TabIndex = 9;
+            this.ticketLabel.Text = "Ticket";
+            // 
+            // empresaLabel
+            // 
+            this.empresaLabel.AutoSize = true;
+            this.empresaLabel.Location = new System.Drawing.Point(14, 75);
+            this.empresaLabel.Name = "empresaLabel";
+            this.empresaLabel.Size = new System.Drawing.Size(52, 15);
+            this.empresaLabel.TabIndex = 8;
+            this.empresaLabel.Text = "Empresa";
+            // 
+            // idLabel
+            // 
+            this.idLabel.AutoSize = true;
+            this.idLabel.Location = new System.Drawing.Point(14, 16);
+            this.idLabel.Name = "idLabel";
+            this.idLabel.Size = new System.Drawing.Size(18, 15);
+            this.idLabel.TabIndex = 7;
+            this.idLabel.Text = "ID";
+            // 
+            // textBox5
+            // 
+            this.textBox5.Location = new System.Drawing.Point(14, 93);
+            this.textBox5.Name = "textBox5";
+            this.textBox5.Size = new System.Drawing.Size(100, 23);
+            this.textBox5.TabIndex = 5;
+            // 
+            // ticketBox
+            // 
+            this.ticketBox.Location = new System.Drawing.Point(139, 93);
+            this.ticketBox.Name = "ticketBox";
+            this.ticketBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.ticketBox.Size = new System.Drawing.Size(100, 23);
+            this.ticketBox.TabIndex = 2;
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(570, 260);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.TabIndex = 1;
+            this.button3.Text = "Cancelar";
+            this.button3.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(473, 260);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 0;
+            this.button2.Text = "Salvar";
+            this.button2.UseVisualStyleBackColor = true;
             // 
             // menuStrip1
             // 
@@ -180,7 +378,6 @@ namespace InvestiDuo.Views
             this.ArquivoToolStripMenuItem.Name = "ArquivoToolStripMenuItem";
             this.ArquivoToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.ArquivoToolStripMenuItem.Text = "Arquivo";
-            this.ArquivoToolStripMenuItem.Click += new System.EventHandler(this.ArquivoToolStripMenuItemClick);
             // 
             // detalhesToolStripMenuItem
             // 
@@ -188,129 +385,32 @@ namespace InvestiDuo.Views
             this.detalhesToolStripMenuItem.Size = new System.Drawing.Size(64, 20);
             this.detalhesToolStripMenuItem.Text = "Detalhes";
             // 
-            // BuscarLabel
+            // quantidadeUpDown
             // 
-            this.BuscarLabel.AutoSize = true;
-            this.BuscarLabel.Location = new System.Drawing.Point(8, 13);
-            this.BuscarLabel.Name = "BuscarLabel";
-            this.BuscarLabel.Size = new System.Drawing.Size(73, 15);
-            this.BuscarLabel.TabIndex = 4;
-            this.BuscarLabel.Text = "Buscar Ativo";
+            this.quantidadeUpDown.Location = new System.Drawing.Point(14, 158);
+            this.quantidadeUpDown.Name = "quantidadeUpDown";
+            this.quantidadeUpDown.Size = new System.Drawing.Size(100, 23);
+            this.quantidadeUpDown.TabIndex = 16;
             // 
-            // dataGridView1
+            // valorUpDown
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(8, 60);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowTemplate.Height = 25;
-            this.dataGridView1.Size = new System.Drawing.Size(556, 222);
-            this.dataGridView1.TabIndex = 5;
+            this.valorUpDown.DecimalPlaces = 2;
+            this.valorUpDown.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.valorUpDown.Location = new System.Drawing.Point(139, 158);
+            this.valorUpDown.Name = "valorUpDown";
+            this.valorUpDown.Size = new System.Drawing.Size(100, 23);
+            this.valorUpDown.TabIndex = 17;
             // 
-            // textBox1
+            // numericUpDown1
             // 
-            this.textBox1.Location = new System.Drawing.Point(8, 31);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(304, 23);
-            this.textBox1.TabIndex = 6;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(21, 243);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 0;
-            this.button2.Text = "Salvar";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(118, 243);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 1;
-            this.button3.Text = "Cancelar";
-            this.button3.UseVisualStyleBackColor = true;
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(21, 117);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.textBox2.Size = new System.Drawing.Size(100, 23);
-            this.textBox2.TabIndex = 2;
-            // 
-            // textBox3
-            // 
-            this.textBox3.Location = new System.Drawing.Point(155, 117);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(100, 23);
-            this.textBox3.TabIndex = 3;
-            // 
-            // textBox4
-            // 
-            this.textBox4.Location = new System.Drawing.Point(280, 117);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(100, 23);
-            this.textBox4.TabIndex = 4;
-            // 
-            // textBox5
-            // 
-            this.textBox5.Location = new System.Drawing.Point(155, 49);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(100, 23);
-            this.textBox5.TabIndex = 5;
-            // 
-            // textBox6
-            // 
-            this.textBox6.Location = new System.Drawing.Point(21, 49);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(100, 23);
-            this.textBox6.TabIndex = 6;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(21, 31);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(38, 15);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "label1";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(155, 31);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(38, 15);
-            this.label2.TabIndex = 8;
-            this.label2.Text = "label2";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(21, 99);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(38, 15);
-            this.label3.TabIndex = 9;
-            this.label3.Text = "label3";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(155, 99);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(38, 15);
-            this.label4.TabIndex = 10;
-            this.label4.Text = "label4";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(280, 99);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(38, 15);
-            this.label5.TabIndex = 11;
-            this.label5.Text = "label5";
+            this.numericUpDown1.Location = new System.Drawing.Point(14, 34);
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(100, 23);
+            this.numericUpDown1.TabIndex = 18;
             // 
             // AtivoView
             // 
@@ -322,24 +422,42 @@ namespace InvestiDuo.Views
             tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.quantidadeUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.valorUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
-
-        }
-
-        private void ArquivoToolStripMenuItemClick(object sender, EventArgs e)
-        {
 
         }
 
         private void AddButtonClick(object sender, EventArgs e)
         {
 
+        }
+
+        public void SetAssetListBindingSource(BindingSource assetList)
+        {
+            dataGridView.DataSource = assetList;
+        }
+
+        private void TotalBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Verify that the pressed key isn't CTRL or any non-numeric digit
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+
+            // If you want, you can allow decimal (float) numbers
+            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
+            {
+                e.Handled = true;
+            }
         }
     }
 }
