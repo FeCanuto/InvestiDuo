@@ -6,6 +6,13 @@ namespace InvestiDuo._Repositories
 {
     public class AtivoRepository : BaseRepository, IAtivoRepository
     {
+        private string sqlConnectionString;
+
+        public AtivoRepository(string sqlConnectionString)
+        {
+            this.sqlConnectionString = sqlConnectionString;
+        }
+
         public void Add()
         {
             throw new NotImplementedException();
