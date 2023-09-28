@@ -26,7 +26,8 @@ namespace InvestiDuo.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=localhost;Initial Catalog=InvestDuoDb;Integrated Security=True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=localhost;Initial Catalog=InvestDuoDb;Integrated Security=true ;Trust" +
+            "ServerCertificate=true")]
         public string SqlConnection {
             get {
                 return ((string)(this["SqlConnection"]));
