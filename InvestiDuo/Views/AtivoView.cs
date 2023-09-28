@@ -459,5 +459,22 @@ namespace InvestiDuo.Views
                 e.Handled = true;
             }
         }
+
+        //Singleton Pattern
+        private static AtivoView? instance;
+        public static AtivoView GetInstance()
+        {
+            if (instance == null || instance.IsDisposed)
+            {
+                instance = new AtivoView();
+            }
+            else
+            {
+                if(instance.WindowState == FormWindowState.Minimized)
+                    instance.WindowState = FormWindowState.Normal;
+                instance.BringToFront();
+            }
+            return instance;
+        }
     }
 }
