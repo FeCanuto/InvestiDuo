@@ -6,11 +6,9 @@ namespace InvestiDuo._Repositories
 {
     public class AtivoRepository : BaseRepository, IAtivoRepository
     {
-        private string sqlConnectionString;
-
         public AtivoRepository(string sqlConnectionString)
         {
-            this.sqlConnectionString = sqlConnectionString;
+            connectionString = sqlConnectionString;
         }
 
         public void Add()
@@ -36,7 +34,7 @@ namespace InvestiDuo._Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "Select * from Ativo order by Ativo_Id desc";
+                command.CommandText = "Select * from Ativos order by Ativo_Id desc";
                 using (var reader = command.ExecuteReader())
                 {
                     while (reader.Read())
@@ -67,7 +65,7 @@ namespace InvestiDuo._Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "Select * from Ativo " +
+                command.CommandText = "Select * from Ativos " +
                     "where Ativo_Id = @id or Ativo_Name like @name+'%' order by Ativo_Id desc";
                 command.Parameters.Add("@id", SqlDbType.Int).Value = assetId;
                 command.Parameters.Add("@name", SqlDbType.NVarChar).Value = assetName;
