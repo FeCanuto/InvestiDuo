@@ -13,8 +13,6 @@ namespace InvestiDuo.Views
     public partial class AtivoView : Form, IAtivoView
     {
         private IContainer components;
-        private ToolStripMenuItem ArquivoToolStripMenuItem;
-        private ToolStripMenuItem detalhesToolStripMenuItem;
         private TabPage tabPage1;
         private TabPage tabPage2;
         private Button CancelButton;
@@ -36,7 +34,6 @@ namespace InvestiDuo.Views
         private TextBox ticketBox;
         private Button button3;
         private Button button2;
-        private MenuStrip menuStrip1;
         private DateTimePicker dateTimePicker;
         private DateTime date;
         private bool isSucessful;
@@ -50,6 +47,8 @@ namespace InvestiDuo.Views
         private NumericUpDown valorUpDown;
         private NumericUpDown quantidadeUpDown;
         private NumericUpDown numericUpDown1;
+        private Label ativoLabel;
+        private Button buttonClose;
         private int id;
 
         public event EventHandler SearchEvent;
@@ -63,7 +62,6 @@ namespace InvestiDuo.Views
         {
            InitializeComponent();
            AssociateAndRaiseViewEvents();
-           //btnClose.Click += delegate { this.Close(); };
         }
 
         private void AssociateAndRaiseViewEvents()
@@ -106,6 +104,9 @@ namespace InvestiDuo.Views
             this.AddButton = new System.Windows.Forms.Button();
             this.BuscarButton = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.valorUpDown = new System.Windows.Forms.NumericUpDown();
+            this.quantidadeUpDown = new System.Windows.Forms.NumericUpDown();
             this.totalLabel = new System.Windows.Forms.Label();
             this.totalBox = new System.Windows.Forms.TextBox();
             this.dataLabel = new System.Windows.Forms.Label();
@@ -119,32 +120,28 @@ namespace InvestiDuo.Views
             this.ticketBox = new System.Windows.Forms.TextBox();
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.ArquivoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.detalhesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.quantidadeUpDown = new System.Windows.Forms.NumericUpDown();
-            this.valorUpDown = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.ativoLabel = new System.Windows.Forms.Label();
+            this.buttonClose = new System.Windows.Forms.Button();
             tabControl1 = new System.Windows.Forms.TabControl();
             tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.tabPage2.SuspendLayout();
-            this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.quantidadeUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.valorUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.valorUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.quantidadeUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
             // 
             tabControl1.Controls.Add(this.tabPage1);
             tabControl1.Controls.Add(this.tabPage2);
-            tabControl1.Location = new System.Drawing.Point(0, 27);
+            tabControl1.Location = new System.Drawing.Point(0, 33);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new System.Drawing.Size(661, 317);
+            tabControl1.Size = new System.Drawing.Size(661, 311);
             tabControl1.TabIndex = 3;
+            tabControl1.TabPages.Remove(tabPage2);
             // 
             // tabPage1
             // 
@@ -158,7 +155,7 @@ namespace InvestiDuo.Views
             this.tabPage1.Location = new System.Drawing.Point(4, 24);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(653, 289);
+            this.tabPage1.Size = new System.Drawing.Size(653, 283);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Ativos da carteira";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -216,10 +213,10 @@ namespace InvestiDuo.Views
             this.AddButton.UseVisualStyleBackColor = true;
             this.AddButton.Click += new System.EventHandler(this.AddButtonClick);
             // 
-            // button1
+            // BuscarButton
             // 
             this.BuscarButton.Location = new System.Drawing.Point(318, 31);
-            this.BuscarButton.Name = "button1";
+            this.BuscarButton.Name = "BuscarButton";
             this.BuscarButton.Size = new System.Drawing.Size(75, 23);
             this.BuscarButton.TabIndex = 0;
             this.BuscarButton.Text = "Buscar";
@@ -246,10 +243,37 @@ namespace InvestiDuo.Views
             this.tabPage2.Location = new System.Drawing.Point(4, 24);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(653, 289);
+            this.tabPage2.Size = new System.Drawing.Size(653, 283);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Detalhes do ativo";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.Location = new System.Drawing.Point(14, 34);
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(100, 23);
+            this.numericUpDown1.TabIndex = 18;
+            // 
+            // valorUpDown
+            // 
+            this.valorUpDown.DecimalPlaces = 2;
+            this.valorUpDown.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.valorUpDown.Location = new System.Drawing.Point(139, 158);
+            this.valorUpDown.Name = "valorUpDown";
+            this.valorUpDown.Size = new System.Drawing.Size(100, 23);
+            this.valorUpDown.TabIndex = 17;
+            // 
+            // quantidadeUpDown
+            // 
+            this.quantidadeUpDown.Location = new System.Drawing.Point(14, 158);
+            this.quantidadeUpDown.Name = "quantidadeUpDown";
+            this.quantidadeUpDown.Size = new System.Drawing.Size(100, 23);
+            this.quantidadeUpDown.TabIndex = 16;
             // 
             // totalLabel
             // 
@@ -362,62 +386,35 @@ namespace InvestiDuo.Views
             this.button2.Text = "Salvar";
             this.button2.UseVisualStyleBackColor = true;
             // 
-            // menuStrip1
+            // ativoLabel
             // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ArquivoToolStripMenuItem,
-            this.detalhesToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(661, 24);
-            this.menuStrip1.TabIndex = 2;
-            this.menuStrip1.Text = "menuStrip1";
+            this.ativoLabel.AutoSize = true;
+            this.ativoLabel.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.ativoLabel.Location = new System.Drawing.Point(4, 0);
+            this.ativoLabel.Name = "ativoLabel";
+            this.ativoLabel.Size = new System.Drawing.Size(75, 30);
+            this.ativoLabel.TabIndex = 4;
+            this.ativoLabel.Text = "Ativos";
             // 
-            // ArquivoToolStripMenuItem
+            // buttonClose
             // 
-            this.ArquivoToolStripMenuItem.Name = "ArquivoToolStripMenuItem";
-            this.ArquivoToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
-            this.ArquivoToolStripMenuItem.Text = "Arquivo";
-            // 
-            // detalhesToolStripMenuItem
-            // 
-            this.detalhesToolStripMenuItem.Name = "detalhesToolStripMenuItem";
-            this.detalhesToolStripMenuItem.Size = new System.Drawing.Size(64, 20);
-            this.detalhesToolStripMenuItem.Text = "Detalhes";
-            // 
-            // quantidadeUpDown
-            // 
-            this.quantidadeUpDown.Location = new System.Drawing.Point(14, 158);
-            this.quantidadeUpDown.Name = "quantidadeUpDown";
-            this.quantidadeUpDown.Size = new System.Drawing.Size(100, 23);
-            this.quantidadeUpDown.TabIndex = 16;
-            // 
-            // valorUpDown
-            // 
-            this.valorUpDown.DecimalPlaces = 2;
-            this.valorUpDown.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
-            this.valorUpDown.Location = new System.Drawing.Point(139, 158);
-            this.valorUpDown.Name = "valorUpDown";
-            this.valorUpDown.Size = new System.Drawing.Size(100, 23);
-            this.valorUpDown.TabIndex = 17;
-            // 
-            // numericUpDown1
-            // 
-            this.numericUpDown1.Location = new System.Drawing.Point(14, 34);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(100, 23);
-            this.numericUpDown1.TabIndex = 18;
+            this.buttonClose.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.buttonClose.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.buttonClose.Location = new System.Drawing.Point(631, 6);
+            this.buttonClose.Name = "buttonClose";
+            this.buttonClose.Size = new System.Drawing.Size(26, 26);
+            this.buttonClose.TabIndex = 7;
+            this.buttonClose.Text = "x";
+            this.buttonClose.UseVisualStyleBackColor = false;
+            this.buttonClose.Click += delegate { this.Close(); };
             // 
             // AtivoView
             // 
+            this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(661, 349);
+            this.Controls.Add(this.buttonClose);
+            this.Controls.Add(this.ativoLabel);
             this.Controls.Add(tabControl1);
-            this.Controls.Add(this.menuStrip1);
-            this.MainMenuStrip = this.menuStrip1;
             this.Name = "AtivoView";
             tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
@@ -425,11 +422,9 @@ namespace InvestiDuo.Views
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.quantidadeUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.valorUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.valorUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.quantidadeUpDown)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -462,11 +457,15 @@ namespace InvestiDuo.Views
 
         //Singleton Pattern
         private static AtivoView? instance;
-        public static AtivoView GetInstance()
+
+        public static AtivoView GetInstance(Form parentContainer)
         {
             if (instance == null || instance.IsDisposed)
             {
                 instance = new AtivoView();
+                instance.MdiParent = parentContainer;
+                instance.FormBorderStyle = FormBorderStyle.None;
+                instance.Dock = DockStyle.Fill;
             }
             else
             {
