@@ -27,10 +27,9 @@ namespace InvestiDuo
         public static void Start()
         {
             string sqlConnectionString = ConfigurationManager.ConnectionStrings["InvestiDuo.Properties.Settings.SqlConnection"].ConnectionString;
-            IAtivoView ativoView = new AtivoView();
-            IAtivoRepository ativoRepository = new AtivoRepository(sqlConnectionString);
-            new AtivoPresenter(ativoView, ativoRepository);
-            Application.Run((Form)ativoView);
+            IMainView view = new MainView();
+            new MainPresenter(view, sqlConnectionString);
+            Application.Run((Form)view);
 
         }
     }
