@@ -12,10 +12,12 @@ namespace InvestiDuo.Views
 {
     public partial class AtivoView : Form, IAtivoView
     {
+        private static AtivoView? instance;
         private IContainer components;
-        private TabPage tabPage1;
-        private TabPage tabPage2;
-        private Button CancelButton;
+        private TabControl tabControl1;
+        private TabPage ativoListPage;
+        private TabPage editPage;
+        private Button DeleteButton;
         private Button EditButton;
         private Button AddButton;
         private Button BuscarButton;
@@ -32,8 +34,8 @@ namespace InvestiDuo.Views
         private TextBox totalBox;
         private TextBox textBox5;
         private TextBox ticketBox;
-        private Button button3;
-        private Button button2;
+        private Button CancelButton;
+        private Button SaveButton;
         private DateTimePicker dateTimePicker;
         private DateTime date;
         private bool isSucessful;
@@ -62,21 +64,8 @@ namespace InvestiDuo.Views
         {
            InitializeComponent();
            AssociateAndRaiseViewEvents();
-        }
 
-        private void AssociateAndRaiseViewEvents()
-        {
-            BuscarButton.Click += delegate { SearchEvent?.Invoke(this, EventArgs.Empty); };
-            searchBox.KeyDown += (s, e) =>
-            {
-                if (e.KeyCode == Keys.Enter)
-                    SearchEvent?.Invoke(this, EventArgs.Empty);
-            };
-        }
-
-        private void BuscarButton_Click(object? sender, EventArgs e)
-        {
-            throw new NotImplementedException();
+            buttonClose.Click += delegate { this.Close(); };
         }
 
         public int Id { get => id; set => id = value; }
@@ -88,22 +77,22 @@ namespace InvestiDuo.Views
         public string Message { get => message; set => message = value; }
         public string? Ticket { get => ticketBox.Text; set => ticketBox.Text = value; }
         public bool IsEdit { get => isEdit; set => isEdit = value; }
-        public bool IsSucessful { get => isSucessful; set => isSucessful = value; }
+        public bool IsSuccessful { get => isSucessful; set => isSucessful = value; }
         
 
 
         private void InitializeComponent()
         {
             System.Windows.Forms.TabControl tabControl1;
-            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.ativoListPage = new System.Windows.Forms.TabPage();
             this.searchBox = new System.Windows.Forms.TextBox();
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.BuscarLabel = new System.Windows.Forms.Label();
-            this.CancelButton = new System.Windows.Forms.Button();
+            this.DeleteButton = new System.Windows.Forms.Button();
             this.EditButton = new System.Windows.Forms.Button();
             this.AddButton = new System.Windows.Forms.Button();
             this.BuscarButton = new System.Windows.Forms.Button();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.editPage = new System.Windows.Forms.TabPage();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.valorUpDown = new System.Windows.Forms.NumericUpDown();
             this.quantidadeUpDown = new System.Windows.Forms.NumericUpDown();
@@ -118,15 +107,15 @@ namespace InvestiDuo.Views
             this.idLabel = new System.Windows.Forms.Label();
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.ticketBox = new System.Windows.Forms.TextBox();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.CancelButton = new System.Windows.Forms.Button();
+            this.SaveButton = new System.Windows.Forms.Button();
             this.ativoLabel = new System.Windows.Forms.Label();
             this.buttonClose = new System.Windows.Forms.Button();
             tabControl1 = new System.Windows.Forms.TabControl();
             tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
+            this.ativoListPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
-            this.tabPage2.SuspendLayout();
+            this.editPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.valorUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.quantidadeUpDown)).BeginInit();
@@ -134,34 +123,38 @@ namespace InvestiDuo.Views
             // 
             // tabControl1
             // 
-            tabControl1.Controls.Add(this.tabPage1);
-            tabControl1.Controls.Add(this.tabPage2);
+            tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            tabControl1.Controls.Add(this.ativoListPage);
+            tabControl1.Controls.Add(this.editPage);
             tabControl1.Location = new System.Drawing.Point(0, 33);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
             tabControl1.Size = new System.Drawing.Size(661, 311);
             tabControl1.TabIndex = 3;
-            tabControl1.TabPages.Remove(tabPage2);
             // 
-            // tabPage1
+            // ativoListPage
             // 
-            this.tabPage1.Controls.Add(this.searchBox);
-            this.tabPage1.Controls.Add(this.dataGridView);
-            this.tabPage1.Controls.Add(this.BuscarLabel);
-            this.tabPage1.Controls.Add(this.CancelButton);
-            this.tabPage1.Controls.Add(this.EditButton);
-            this.tabPage1.Controls.Add(this.AddButton);
-            this.tabPage1.Controls.Add(this.BuscarButton);
-            this.tabPage1.Location = new System.Drawing.Point(4, 24);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(653, 283);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Ativos da carteira";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.ativoListPage.Controls.Add(this.searchBox);
+            this.ativoListPage.Controls.Add(this.dataGridView);
+            this.ativoListPage.Controls.Add(this.BuscarLabel);
+            this.ativoListPage.Controls.Add(this.DeleteButton);
+            this.ativoListPage.Controls.Add(this.EditButton);
+            this.ativoListPage.Controls.Add(this.AddButton);
+            this.ativoListPage.Controls.Add(this.BuscarButton);
+            this.ativoListPage.Location = new System.Drawing.Point(4, 24);
+            this.ativoListPage.Name = "ativoListPage";
+            this.ativoListPage.Padding = new System.Windows.Forms.Padding(3);
+            this.ativoListPage.Size = new System.Drawing.Size(653, 283);
+            this.ativoListPage.TabIndex = 0;
+            this.ativoListPage.Text = "Ativos da carteira";
+            this.ativoListPage.UseVisualStyleBackColor = true;
             // 
             // searchBox
             // 
+            this.searchBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.searchBox.Location = new System.Drawing.Point(8, 31);
             this.searchBox.Name = "searchBox";
             this.searchBox.Size = new System.Drawing.Size(304, 23);
@@ -169,6 +162,10 @@ namespace InvestiDuo.Views
             // 
             // dataGridView
             // 
+            this.dataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView.Location = new System.Drawing.Point(8, 60);
             this.dataGridView.Name = "dataGridView";
@@ -185,68 +182,75 @@ namespace InvestiDuo.Views
             this.BuscarLabel.TabIndex = 4;
             this.BuscarLabel.Text = "Buscar Ativo";
             // 
-            // CancelButton
+            // DeleteButton
             // 
-            this.CancelButton.Location = new System.Drawing.Point(570, 136);
-            this.CancelButton.Name = "CancelButton";
-            this.CancelButton.Size = new System.Drawing.Size(75, 23);
-            this.CancelButton.TabIndex = 3;
-            this.CancelButton.Text = "Cancelar";
-            this.CancelButton.UseVisualStyleBackColor = true;
+            this.DeleteButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.DeleteButton.AutoSize = true;
+            this.DeleteButton.Location = new System.Drawing.Point(570, 136);
+            this.DeleteButton.Name = "DeleteButton";
+            this.DeleteButton.Size = new System.Drawing.Size(75, 25);
+            this.DeleteButton.TabIndex = 3;
+            this.DeleteButton.Text = "Deletar";
+            this.DeleteButton.UseVisualStyleBackColor = true;
             // 
             // EditButton
             // 
+            this.EditButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.EditButton.AutoSize = true;
             this.EditButton.Location = new System.Drawing.Point(570, 107);
             this.EditButton.Name = "EditButton";
-            this.EditButton.Size = new System.Drawing.Size(75, 23);
+            this.EditButton.Size = new System.Drawing.Size(75, 25);
             this.EditButton.TabIndex = 2;
             this.EditButton.Text = "Editar";
             this.EditButton.UseVisualStyleBackColor = true;
             // 
             // AddButton
             // 
+            this.AddButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.AddButton.AutoSize = true;
             this.AddButton.Location = new System.Drawing.Point(570, 78);
             this.AddButton.Name = "AddButton";
-            this.AddButton.Size = new System.Drawing.Size(75, 23);
+            this.AddButton.Size = new System.Drawing.Size(75, 25);
             this.AddButton.TabIndex = 1;
             this.AddButton.Text = "Adicionar";
             this.AddButton.UseVisualStyleBackColor = true;
-            this.AddButton.Click += new System.EventHandler(this.AddButtonClick);
             // 
             // BuscarButton
             // 
+            this.BuscarButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.BuscarButton.AutoSize = true;
             this.BuscarButton.Location = new System.Drawing.Point(318, 31);
             this.BuscarButton.Name = "BuscarButton";
-            this.BuscarButton.Size = new System.Drawing.Size(75, 23);
+            this.BuscarButton.Size = new System.Drawing.Size(75, 25);
             this.BuscarButton.TabIndex = 0;
             this.BuscarButton.Text = "Buscar";
             this.BuscarButton.UseVisualStyleBackColor = true;
             // 
-            // tabPage2
+            // editPage
             // 
-            this.tabPage2.Controls.Add(this.numericUpDown1);
-            this.tabPage2.Controls.Add(this.valorUpDown);
-            this.tabPage2.Controls.Add(this.quantidadeUpDown);
-            this.tabPage2.Controls.Add(this.totalLabel);
-            this.tabPage2.Controls.Add(this.totalBox);
-            this.tabPage2.Controls.Add(this.dataLabel);
-            this.tabPage2.Controls.Add(this.dateTimePicker);
-            this.tabPage2.Controls.Add(this.valorLabel);
-            this.tabPage2.Controls.Add(this.quantityLabel);
-            this.tabPage2.Controls.Add(this.ticketLabel);
-            this.tabPage2.Controls.Add(this.empresaLabel);
-            this.tabPage2.Controls.Add(this.idLabel);
-            this.tabPage2.Controls.Add(this.textBox5);
-            this.tabPage2.Controls.Add(this.ticketBox);
-            this.tabPage2.Controls.Add(this.button3);
-            this.tabPage2.Controls.Add(this.button2);
-            this.tabPage2.Location = new System.Drawing.Point(4, 24);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(653, 283);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Detalhes do ativo";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.editPage.Controls.Add(this.numericUpDown1);
+            this.editPage.Controls.Add(this.valorUpDown);
+            this.editPage.Controls.Add(this.quantidadeUpDown);
+            this.editPage.Controls.Add(this.totalLabel);
+            this.editPage.Controls.Add(this.totalBox);
+            this.editPage.Controls.Add(this.dataLabel);
+            this.editPage.Controls.Add(this.dateTimePicker);
+            this.editPage.Controls.Add(this.valorLabel);
+            this.editPage.Controls.Add(this.quantityLabel);
+            this.editPage.Controls.Add(this.ticketLabel);
+            this.editPage.Controls.Add(this.empresaLabel);
+            this.editPage.Controls.Add(this.idLabel);
+            this.editPage.Controls.Add(this.textBox5);
+            this.editPage.Controls.Add(this.ticketBox);
+            this.editPage.Controls.Add(this.CancelButton);
+            this.editPage.Controls.Add(this.SaveButton);
+            this.editPage.Location = new System.Drawing.Point(4, 24);
+            this.editPage.Name = "editPage";
+            this.editPage.Padding = new System.Windows.Forms.Padding(3);
+            this.editPage.Size = new System.Drawing.Size(653, 283);
+            this.editPage.TabIndex = 1;
+            this.editPage.Text = "Detalhes do ativo";
+            this.editPage.UseVisualStyleBackColor = true;
             // 
             // numericUpDown1
             // 
@@ -368,23 +372,23 @@ namespace InvestiDuo.Views
             this.ticketBox.Size = new System.Drawing.Size(100, 23);
             this.ticketBox.TabIndex = 2;
             // 
-            // button3
+            // CancelButton
             // 
-            this.button3.Location = new System.Drawing.Point(570, 260);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 1;
-            this.button3.Text = "Cancelar";
-            this.button3.UseVisualStyleBackColor = true;
+            this.CancelButton.Location = new System.Drawing.Point(570, 260);
+            this.CancelButton.Name = "CancelButton";
+            this.CancelButton.Size = new System.Drawing.Size(75, 23);
+            this.CancelButton.TabIndex = 1;
+            this.CancelButton.Text = "Cancelar";
+            this.CancelButton.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // SaveButton
             // 
-            this.button2.Location = new System.Drawing.Point(473, 260);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 0;
-            this.button2.Text = "Salvar";
-            this.button2.UseVisualStyleBackColor = true;
+            this.SaveButton.Location = new System.Drawing.Point(473, 260);
+            this.SaveButton.Name = "SaveButton";
+            this.SaveButton.Size = new System.Drawing.Size(75, 23);
+            this.SaveButton.TabIndex = 0;
+            this.SaveButton.Text = "Salvar";
+            this.SaveButton.UseVisualStyleBackColor = true;
             // 
             // ativoLabel
             // 
@@ -398,6 +402,7 @@ namespace InvestiDuo.Views
             // 
             // buttonClose
             // 
+            this.buttonClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonClose.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.buttonClose.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.buttonClose.Location = new System.Drawing.Point(631, 6);
@@ -406,10 +411,11 @@ namespace InvestiDuo.Views
             this.buttonClose.TabIndex = 7;
             this.buttonClose.Text = "x";
             this.buttonClose.UseVisualStyleBackColor = false;
-            this.buttonClose.Click += delegate { this.Close(); };
             // 
             // AtivoView
             // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(661, 349);
             this.Controls.Add(this.buttonClose);
@@ -417,11 +423,11 @@ namespace InvestiDuo.Views
             this.Controls.Add(tabControl1);
             this.Name = "AtivoView";
             tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
+            this.ativoListPage.ResumeLayout(false);
+            this.ativoListPage.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage2.PerformLayout();
+            this.editPage.ResumeLayout(false);
+            this.editPage.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.valorUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.quantidadeUpDown)).EndInit();
@@ -430,8 +436,65 @@ namespace InvestiDuo.Views
 
         }
 
-        private void AddButtonClick(object sender, EventArgs e)
+        private void AssociateAndRaiseViewEvents()
         {
+            //Buscar
+            BuscarButton.Click += delegate { SearchEvent?.Invoke(this, EventArgs.Empty); };
+            searchBox.KeyDown += (s, e) =>
+            {
+                if (e.KeyCode == Keys.Enter)
+                    SearchEvent?.Invoke(this, EventArgs.Empty);
+            };
+
+            //Adicionar
+            AddButton.Click += delegate
+            {
+                AddEvent?.Invoke(this, EventArgs.Empty);
+                tabControl1.TabPages.Remove(editPage);
+                tabControl1.TabPages.Add(editPage);
+                editPage.Text = "Adicionar ativo";
+            };
+
+            //Editar
+            EditButton.Click += delegate
+            {
+                EditEvent?.Invoke(this, EventArgs.Empty);
+                tabControl1.TabPages.Remove(editPage);
+                tabControl1.TabPages.Add(editPage);
+                editPage.Text = "Editar ativo";
+            };
+
+            //Salvar
+            SaveButton.Click += delegate
+            {
+                SaveEvent?.Invoke(this, EventArgs.Empty);
+                if (IsSuccessful)
+                {
+                    tabControl1.TabPages.Remove(editPage);
+                    tabControl1.TabPages.Add(ativoListPage);
+                }
+                MessageBox.Show(Message);
+            };
+
+            CancelButton.Click += delegate
+            {
+                CancelEvent?.Invoke(this, global::System.EventArgs.Empty);
+                this.tabControl1.TabPages.Remove(this.editPage);
+                this.tabControl1.TabPages.Add(this.ativoListPage);
+            };
+
+            DeleteButton.Click += delegate
+            {
+                DialogResult result = MessageBox.Show("Tem certeza que deseja deletar esse ativo?", "Warning",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                if(result == DialogResult.Yes)
+                {
+                    DeleteEvent?.Invoke(this, EventArgs.Empty);
+                    MessageBox.Show(Message);
+                }
+
+            };
 
         }
 
@@ -456,8 +519,6 @@ namespace InvestiDuo.Views
         }
 
         //Singleton Pattern
-        private static AtivoView? instance;
-
         public static AtivoView GetInstance(Form parentContainer)
         {
             if (instance == null || instance.IsDisposed)
