@@ -18,7 +18,7 @@ namespace InvestiDuo.Views
 
         string SearchValue { get; set; }
         bool IsEdit { get; set; }
-        bool IsSucessful { get; set; }
+        bool IsSuccessful { get; set; }
         string Message { get; set; }
 
         //Eventos
