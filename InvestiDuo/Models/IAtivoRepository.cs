@@ -8,9 +8,9 @@ namespace InvestiDuo.Models
 {
     public interface IAtivoRepository
     {
-        void Add();
-        void Edit();
-        void Delete();
+        void Add(AtivoModel ativoModel);
+        void Edit(AtivoModel ativoModel);
+        void Delete(int id);
         IEnumerable<AtivoModel> GetAll();
         IEnumerable<AtivoModel> GetByValue(string value);
     }
