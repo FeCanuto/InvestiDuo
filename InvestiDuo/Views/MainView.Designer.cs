@@ -35,6 +35,7 @@
             // 
             // panel1
             // 
+            this.panel1.BackColor = System.Drawing.SystemColors.Highlight;
             this.panel1.Controls.Add(this.ButtonAtivos);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 0);
@@ -44,6 +45,7 @@
             // 
             // ButtonAtivos
             // 
+            this.ButtonAtivos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ButtonAtivos.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.ButtonAtivos.Location = new System.Drawing.Point(0, 69);
             this.ButtonAtivos.Name = "ButtonAtivos";

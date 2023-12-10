@@ -209,7 +209,7 @@ namespace InvestiDuo.Views
             this.AddButton.TabIndex = 1;
             this.AddButton.Text = "Adicionar";
             this.AddButton.UseVisualStyleBackColor = false;
-            this.AddButton.Click += new System.EventHandler(this.AddButton_Click);
+            //this.AddButton.Click += new System.EventHandler(this.AddButton_Click);
             // 
             // BuscarButton
             // 
@@ -543,12 +543,12 @@ namespace InvestiDuo.Views
             return instance;
         }
 
-        private void AddButton_Click(object sender, EventArgs e)
-        {
-            AddEvent?.Invoke(this, EventArgs.Empty);
-            this.tabControl1.TabPages.Remove(editPage);
-            this.tabControl1.TabPages.Add(editPage);
-            editPage.Text = "Adicionar ativo";
-        }
+        //private void AddButton_Click(object sender, EventArgs e)
+        //{
+        //    AddEvent?.Invoke(this, EventArgs.Empty);
+        //    this.tabControl1.TabPages.Remove(editPage);
+        //    this.tabControl1.TabPages.Add(editPage);
+        //    editPage.Text = "Adicionar ativo";
+        //}
     }
 }
