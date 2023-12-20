@@ -52,16 +52,20 @@ namespace InvestiDuo.Views
         public event EventHandler SaveEvent;
         public event EventHandler CancelEvent;
 
+        partial void InitializeOtherComponents();
+
+
         public AtivoView()
         {
             InitializeComponent();
+            InitializeOtherComponents();
             AssociateAndRaiseViewEvents();
 
             buttonClose.Click += delegate { this.Close(); };
         }
 
         public int Id { get => (int)idUpDown.Value; set => idUpDown.Value = value; }
-        public string? Name { get => empresaNameBox.Text; set => empresaNameBox.Text = value; }
+        public new string? Name { get => empresaNameBox.Text; set => empresaNameBox.Text = value; }
         public int Quantity { get => (int)quantidadeUpDown.Value; set => quantidadeUpDown.Value = value; }
         public decimal Value { get => valorUpDown.Value; set => valorUpDown.Value = value; }
         public decimal Total { get => totalUpDown.Value; set => totalUpDown.Value = value; }
@@ -74,372 +78,358 @@ namespace InvestiDuo.Views
 
         private void InitializeComponent()
         {
-            System.Windows.Forms.TabControl tabControl1;
-            this.ativoListPage = new System.Windows.Forms.TabPage();
-            this.searchBox = new System.Windows.Forms.TextBox();
-            this.dataGridView = new System.Windows.Forms.DataGridView();
-            this.BuscarLabel = new System.Windows.Forms.Label();
-            this.DeleteButton = new System.Windows.Forms.Button();
-            this.EditButton = new System.Windows.Forms.Button();
-            this.AddButton = new System.Windows.Forms.Button();
-            this.BuscarButton = new System.Windows.Forms.Button();
-            this.editPage = new System.Windows.Forms.TabPage();
-            this.totalUpDown = new System.Windows.Forms.NumericUpDown();
-            this.idUpDown = new System.Windows.Forms.NumericUpDown();
-            this.valorUpDown = new System.Windows.Forms.NumericUpDown();
-            this.quantidadeUpDown = new System.Windows.Forms.NumericUpDown();
-            this.totalLabel = new System.Windows.Forms.Label();
-            this.dataLabel = new System.Windows.Forms.Label();
-            this.dateTimePicker = new System.Windows.Forms.DateTimePicker();
-            this.valorLabel = new System.Windows.Forms.Label();
-            this.quantityLabel = new System.Windows.Forms.Label();
-            this.ticketLabel = new System.Windows.Forms.Label();
-            this.empresaLabel = new System.Windows.Forms.Label();
-            this.idLabel = new System.Windows.Forms.Label();
-            this.empresaNameBox = new System.Windows.Forms.TextBox();
-            this.ticketBox = new System.Windows.Forms.TextBox();
-            this.CancelButton = new System.Windows.Forms.Button();
-            this.SaveButton = new System.Windows.Forms.Button();
-            this.ativoLabel = new System.Windows.Forms.Label();
-            this.buttonClose = new System.Windows.Forms.Button();
-            tabControl1 = new System.Windows.Forms.TabControl();
+            TabControl tabControl1;
+            ativoListPage = new TabPage();
+            searchBox = new TextBox();
+            dataGridView = new DataGridView();
+            BuscarLabel = new Label();
+            DeleteButton = new Button();
+            EditButton = new Button();
+            AddButton = new Button();
+            BuscarButton = new Button();
+            editPage = new TabPage();
+            totalUpDown = new NumericUpDown();
+            idUpDown = new NumericUpDown();
+            valorUpDown = new NumericUpDown();
+            quantidadeUpDown = new NumericUpDown();
+            totalLabel = new Label();
+            dataLabel = new Label();
+            dateTimePicker = new DateTimePicker();
+            valorLabel = new Label();
+            quantityLabel = new Label();
+            ticketLabel = new Label();
+            empresaLabel = new Label();
+            idLabel = new Label();
+            empresaNameBox = new TextBox();
+            ticketBox = new TextBox();
+            CancelButton = new Button();
+            SaveButton = new Button();
+            ativoLabel = new Label();
+            buttonClose = new Button();
+            tabControl1 = new TabControl();
             tabControl1.SuspendLayout();
-            this.ativoListPage.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
-            this.editPage.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.totalUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.idUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.valorUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.quantidadeUpDown)).BeginInit();
-            this.SuspendLayout();
+            ativoListPage.SuspendLayout();
+            ((ISupportInitialize)dataGridView).BeginInit();
+            editPage.SuspendLayout();
+            ((ISupportInitialize)totalUpDown).BeginInit();
+            ((ISupportInitialize)idUpDown).BeginInit();
+            ((ISupportInitialize)valorUpDown).BeginInit();
+            ((ISupportInitialize)quantidadeUpDown).BeginInit();
+            SuspendLayout();
             // 
             // tabControl1
             // 
-            tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            tabControl1.Controls.Add(this.ativoListPage);
-            tabControl1.Controls.Add(this.editPage);
-            tabControl1.Location = new System.Drawing.Point(0, 33);
+            tabControl1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            tabControl1.Controls.Add(ativoListPage);
+            tabControl1.Controls.Add(editPage);
+            tabControl1.Location = new Point(0, 33);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new System.Drawing.Size(661, 311);
+            tabControl1.Size = new Size(661, 311);
             tabControl1.TabIndex = 3;
             // 
             // ativoListPage
             // 
-            this.ativoListPage.Controls.Add(this.searchBox);
-            this.ativoListPage.Controls.Add(this.dataGridView);
-            this.ativoListPage.Controls.Add(this.BuscarLabel);
-            this.ativoListPage.Controls.Add(this.DeleteButton);
-            this.ativoListPage.Controls.Add(this.EditButton);
-            this.ativoListPage.Controls.Add(this.AddButton);
-            this.ativoListPage.Controls.Add(this.BuscarButton);
-            this.ativoListPage.Location = new System.Drawing.Point(4, 24);
-            this.ativoListPage.Name = "ativoListPage";
-            this.ativoListPage.Padding = new System.Windows.Forms.Padding(3);
-            this.ativoListPage.Size = new System.Drawing.Size(653, 283);
-            this.ativoListPage.TabIndex = 0;
-            this.ativoListPage.Text = "Ativos da carteira";
-            this.ativoListPage.UseVisualStyleBackColor = true;
+            ativoListPage.Controls.Add(searchBox);
+            ativoListPage.Controls.Add(dataGridView);
+            ativoListPage.Controls.Add(BuscarLabel);
+            ativoListPage.Controls.Add(DeleteButton);
+            ativoListPage.Controls.Add(EditButton);
+            ativoListPage.Controls.Add(AddButton);
+            ativoListPage.Controls.Add(BuscarButton);
+            ativoListPage.Location = new Point(4, 24);
+            ativoListPage.Name = "ativoListPage";
+            ativoListPage.Padding = new Padding(3);
+            ativoListPage.Size = new Size(653, 283);
+            ativoListPage.TabIndex = 0;
+            ativoListPage.Text = "Ativos da carteira";
+            ativoListPage.UseVisualStyleBackColor = true;
             // 
             // searchBox
             // 
-            this.searchBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.searchBox.Location = new System.Drawing.Point(8, 31);
-            this.searchBox.Name = "searchBox";
-            this.searchBox.Size = new System.Drawing.Size(304, 23);
-            this.searchBox.TabIndex = 6;
+            searchBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            searchBox.Location = new Point(8, 31);
+            searchBox.Name = "searchBox";
+            searchBox.Size = new Size(293, 23);
+            searchBox.TabIndex = 6;
             // 
             // dataGridView
             // 
-            this.dataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView.Location = new System.Drawing.Point(8, 60);
-            this.dataGridView.Name = "dataGridView";
-            this.dataGridView.RowTemplate.Height = 25;
-            this.dataGridView.Size = new System.Drawing.Size(556, 222);
-            this.dataGridView.TabIndex = 5;
+            dataGridView.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView.Location = new Point(8, 60);
+            dataGridView.Name = "dataGridView";
+            dataGridView.RowTemplate.Height = 25;
+            dataGridView.Size = new Size(556, 222);
+            dataGridView.TabIndex = 5;
             // 
             // BuscarLabel
             // 
-            this.BuscarLabel.AutoSize = true;
-            this.BuscarLabel.Location = new System.Drawing.Point(8, 13);
-            this.BuscarLabel.Name = "BuscarLabel";
-            this.BuscarLabel.Size = new System.Drawing.Size(73, 15);
-            this.BuscarLabel.TabIndex = 4;
-            this.BuscarLabel.Text = "Buscar Ativo";
+            BuscarLabel.AutoSize = true;
+            BuscarLabel.Location = new Point(8, 13);
+            BuscarLabel.Name = "BuscarLabel";
+            BuscarLabel.Size = new Size(73, 15);
+            BuscarLabel.TabIndex = 4;
+            BuscarLabel.Text = "Buscar Ativo";
             // 
             // DeleteButton
             // 
-            this.DeleteButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.DeleteButton.AutoSize = true;
-            this.DeleteButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.DeleteButton.Location = new System.Drawing.Point(570, 136);
-            this.DeleteButton.Name = "DeleteButton";
-            this.DeleteButton.Size = new System.Drawing.Size(75, 25);
-            this.DeleteButton.TabIndex = 3;
-            this.DeleteButton.Text = "Deletar";
-            this.DeleteButton.UseVisualStyleBackColor = false;
+            DeleteButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            DeleteButton.AutoSize = true;
+            DeleteButton.BackColor = Color.FromArgb(255, 128, 128);
+            DeleteButton.Location = new Point(570, 136);
+            DeleteButton.Name = "DeleteButton";
+            DeleteButton.Size = new Size(75, 25);
+            DeleteButton.TabIndex = 3;
+            DeleteButton.Text = "Deletar";
+            DeleteButton.UseVisualStyleBackColor = false;
             // 
             // EditButton
             // 
-            this.EditButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.EditButton.AutoSize = true;
-            this.EditButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.EditButton.Location = new System.Drawing.Point(570, 107);
-            this.EditButton.Name = "EditButton";
-            this.EditButton.Size = new System.Drawing.Size(75, 25);
-            this.EditButton.TabIndex = 2;
-            this.EditButton.Text = "Editar";
-            this.EditButton.UseVisualStyleBackColor = false;
+            EditButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            EditButton.AutoSize = true;
+            EditButton.BackColor = Color.FromArgb(255, 255, 128);
+            EditButton.Location = new Point(570, 107);
+            EditButton.Name = "EditButton";
+            EditButton.Size = new Size(75, 25);
+            EditButton.TabIndex = 2;
+            EditButton.Text = "Editar";
+            EditButton.UseVisualStyleBackColor = false;
             // 
             // AddButton
             // 
-            this.AddButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.AddButton.AutoSize = true;
-            this.AddButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.AddButton.Location = new System.Drawing.Point(570, 78);
-            this.AddButton.Name = "AddButton";
-            this.AddButton.Size = new System.Drawing.Size(75, 25);
-            this.AddButton.TabIndex = 1;
-            this.AddButton.Text = "Adicionar";
-            this.AddButton.UseVisualStyleBackColor = false;
-            //this.AddButton.Click += new System.EventHandler(this.AddButton_Click);
+            AddButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            AddButton.AutoSize = true;
+            AddButton.BackColor = Color.FromArgb(128, 255, 128);
+            AddButton.Location = new Point(570, 78);
+            AddButton.Name = "AddButton";
+            AddButton.Size = new Size(75, 25);
+            AddButton.TabIndex = 1;
+            AddButton.Text = "Adicionar";
+            AddButton.UseVisualStyleBackColor = false;
             // 
             // BuscarButton
             // 
-            this.BuscarButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.BuscarButton.AutoSize = true;
-            this.BuscarButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
-            this.BuscarButton.Location = new System.Drawing.Point(318, 31);
-            this.BuscarButton.Name = "BuscarButton";
-            this.BuscarButton.Size = new System.Drawing.Size(75, 25);
-            this.BuscarButton.TabIndex = 0;
-            this.BuscarButton.Text = "Buscar";
-            this.BuscarButton.UseVisualStyleBackColor = false;
+            BuscarButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            BuscarButton.AutoSize = true;
+            BuscarButton.BackColor = Color.FromArgb(255, 192, 128);
+            BuscarButton.Location = new Point(318, 31);
+            BuscarButton.Name = "BuscarButton";
+            BuscarButton.Size = new Size(75, 25);
+            BuscarButton.TabIndex = 0;
+            BuscarButton.Text = "Buscar";
+            BuscarButton.UseVisualStyleBackColor = false;
             // 
             // editPage
             // 
-            this.editPage.Controls.Add(this.totalUpDown);
-            this.editPage.Controls.Add(this.idUpDown);
-            this.editPage.Controls.Add(this.valorUpDown);
-            this.editPage.Controls.Add(this.quantidadeUpDown);
-            this.editPage.Controls.Add(this.totalLabel);
-            this.editPage.Controls.Add(this.dataLabel);
-            this.editPage.Controls.Add(this.dateTimePicker);
-            this.editPage.Controls.Add(this.valorLabel);
-            this.editPage.Controls.Add(this.quantityLabel);
-            this.editPage.Controls.Add(this.ticketLabel);
-            this.editPage.Controls.Add(this.empresaLabel);
-            this.editPage.Controls.Add(this.idLabel);
-            this.editPage.Controls.Add(this.empresaNameBox);
-            this.editPage.Controls.Add(this.ticketBox);
-            this.editPage.Controls.Add(this.CancelButton);
-            this.editPage.Controls.Add(this.SaveButton);
-            this.editPage.Location = new System.Drawing.Point(4, 24);
-            this.editPage.Name = "editPage";
-            this.editPage.Padding = new System.Windows.Forms.Padding(3);
-            this.editPage.Size = new System.Drawing.Size(653, 283);
-            this.editPage.TabIndex = 1;
-            this.editPage.Text = "Detalhes do ativo";
-            this.editPage.UseVisualStyleBackColor = true;
+            editPage.Controls.Add(totalUpDown);
+            editPage.Controls.Add(idUpDown);
+            editPage.Controls.Add(valorUpDown);
+            editPage.Controls.Add(quantidadeUpDown);
+            editPage.Controls.Add(totalLabel);
+            editPage.Controls.Add(dataLabel);
+            editPage.Controls.Add(dateTimePicker);
+            editPage.Controls.Add(valorLabel);
+            editPage.Controls.Add(quantityLabel);
+            editPage.Controls.Add(ticketLabel);
+            editPage.Controls.Add(empresaLabel);
+            editPage.Controls.Add(idLabel);
+            editPage.Controls.Add(empresaNameBox);
+            editPage.Controls.Add(ticketBox);
+            editPage.Controls.Add(CancelButton);
+            editPage.Controls.Add(SaveButton);
+            editPage.Location = new Point(4, 24);
+            editPage.Name = "editPage";
+            editPage.Padding = new Padding(3);
+            editPage.Size = new Size(653, 283);
+            editPage.TabIndex = 1;
+            editPage.Text = "Detalhes do ativo";
+            editPage.UseVisualStyleBackColor = true;
             // 
             // totalUpDown
             // 
-            this.totalUpDown.DecimalPlaces = 2;
-            this.totalUpDown.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
-            this.totalUpDown.Location = new System.Drawing.Point(270, 158);
-            this.totalUpDown.Name = "totalUpDown";
-            this.totalUpDown.Size = new System.Drawing.Size(100, 23);
-            this.totalUpDown.TabIndex = 19;
+            totalUpDown.DecimalPlaces = 2;
+            totalUpDown.Increment = new decimal(new int[] { 1, 0, 0, 131072 });
+            totalUpDown.Location = new Point(270, 158);
+            totalUpDown.Name = "totalUpDown";
+            totalUpDown.Size = new Size(100, 23);
+            totalUpDown.TabIndex = 19;
             // 
             // idUpDown
             // 
-            this.idUpDown.Location = new System.Drawing.Point(14, 34);
-            this.idUpDown.Name = "idUpDown";
-            this.idUpDown.ReadOnly = true;
-            this.idUpDown.Size = new System.Drawing.Size(100, 23);
-            this.idUpDown.TabIndex = 18;
-            this.idUpDown.Minimum = 100000;
-            this.idUpDown.Maximum = 1000000;
+            idUpDown.Location = new Point(14, 34);
+            idUpDown.Maximum = new decimal(new int[] { 1000000, 0, 0, 0 });
+            idUpDown.Minimum = new decimal(new int[] { 100000, 0, 0, 0 });
+            idUpDown.Name = "idUpDown";
+            idUpDown.ReadOnly = true;
+            idUpDown.Size = new Size(100, 23);
+            idUpDown.TabIndex = 18;
+            idUpDown.Value = new decimal(new int[] { 100000, 0, 0, 0 });
             // 
             // valorUpDown
             // 
-            this.valorUpDown.DecimalPlaces = 2;
-            this.valorUpDown.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
-            this.valorUpDown.Location = new System.Drawing.Point(139, 158);
-            this.valorUpDown.Name = "valorUpDown";
-            this.valorUpDown.Size = new System.Drawing.Size(100, 23);
-            this.valorUpDown.TabIndex = 17;
+            valorUpDown.DecimalPlaces = 2;
+            valorUpDown.Increment = new decimal(new int[] { 1, 0, 0, 131072 });
+            valorUpDown.Location = new Point(139, 158);
+            valorUpDown.Name = "valorUpDown";
+            valorUpDown.Size = new Size(100, 23);
+            valorUpDown.TabIndex = 17;
             // 
             // quantidadeUpDown
             // 
-            this.quantidadeUpDown.Location = new System.Drawing.Point(14, 158);
-            this.quantidadeUpDown.Name = "quantidadeUpDown";
-            this.quantidadeUpDown.Size = new System.Drawing.Size(100, 23);
-            this.quantidadeUpDown.TabIndex = 16;
+            quantidadeUpDown.Location = new Point(14, 158);
+            quantidadeUpDown.Name = "quantidadeUpDown";
+            quantidadeUpDown.Size = new Size(100, 23);
+            quantidadeUpDown.TabIndex = 16;
             // 
             // totalLabel
             // 
-            this.totalLabel.AutoSize = true;
-            this.totalLabel.Location = new System.Drawing.Point(270, 139);
-            this.totalLabel.Name = "totalLabel";
-            this.totalLabel.Size = new System.Drawing.Size(131, 15);
-            this.totalLabel.TabIndex = 15;
-            this.totalLabel.Text = "Total investido no Ativo";
+            totalLabel.AutoSize = true;
+            totalLabel.Location = new Point(270, 139);
+            totalLabel.Name = "totalLabel";
+            totalLabel.Size = new Size(131, 15);
+            totalLabel.TabIndex = 15;
+            totalLabel.Text = "Total investido no Ativo";
             // 
             // dataLabel
             // 
-            this.dataLabel.AutoSize = true;
-            this.dataLabel.Location = new System.Drawing.Point(270, 75);
-            this.dataLabel.Name = "dataLabel";
-            this.dataLabel.Size = new System.Drawing.Size(31, 15);
-            this.dataLabel.TabIndex = 13;
-            this.dataLabel.Text = "Data";
+            dataLabel.AutoSize = true;
+            dataLabel.Location = new Point(270, 75);
+            dataLabel.Name = "dataLabel";
+            dataLabel.Size = new Size(31, 15);
+            dataLabel.TabIndex = 13;
+            dataLabel.Text = "Data";
             // 
             // dateTimePicker
             // 
-            this.dateTimePicker.Location = new System.Drawing.Point(270, 93);
-            this.dateTimePicker.Name = "dateTimePicker";
-            this.dateTimePicker.Size = new System.Drawing.Size(247, 23);
-            this.dateTimePicker.TabIndex = 12;
+            dateTimePicker.Location = new Point(270, 93);
+            dateTimePicker.Name = "dateTimePicker";
+            dateTimePicker.Size = new Size(247, 23);
+            dateTimePicker.TabIndex = 12;
             // 
             // valorLabel
             // 
-            this.valorLabel.AutoSize = true;
-            this.valorLabel.Location = new System.Drawing.Point(139, 139);
-            this.valorLabel.Name = "valorLabel";
-            this.valorLabel.Size = new System.Drawing.Size(33, 15);
-            this.valorLabel.TabIndex = 11;
-            this.valorLabel.Text = "Valor";
+            valorLabel.AutoSize = true;
+            valorLabel.Location = new Point(139, 139);
+            valorLabel.Name = "valorLabel";
+            valorLabel.Size = new Size(33, 15);
+            valorLabel.TabIndex = 11;
+            valorLabel.Text = "Valor";
             // 
             // quantityLabel
             // 
-            this.quantityLabel.AutoSize = true;
-            this.quantityLabel.Location = new System.Drawing.Point(14, 139);
-            this.quantityLabel.Name = "quantityLabel";
-            this.quantityLabel.Size = new System.Drawing.Size(69, 15);
-            this.quantityLabel.TabIndex = 10;
-            this.quantityLabel.Text = "Quantidade";
+            quantityLabel.AutoSize = true;
+            quantityLabel.Location = new Point(14, 139);
+            quantityLabel.Name = "quantityLabel";
+            quantityLabel.Size = new Size(69, 15);
+            quantityLabel.TabIndex = 10;
+            quantityLabel.Text = "Quantidade";
             // 
             // ticketLabel
             // 
-            this.ticketLabel.AutoSize = true;
-            this.ticketLabel.Location = new System.Drawing.Point(139, 75);
-            this.ticketLabel.Name = "ticketLabel";
-            this.ticketLabel.Size = new System.Drawing.Size(38, 15);
-            this.ticketLabel.TabIndex = 9;
-            this.ticketLabel.Text = "Ticket";
+            ticketLabel.AutoSize = true;
+            ticketLabel.Location = new Point(139, 75);
+            ticketLabel.Name = "ticketLabel";
+            ticketLabel.Size = new Size(38, 15);
+            ticketLabel.TabIndex = 9;
+            ticketLabel.Text = "Ticket";
             // 
             // empresaLabel
             // 
-            this.empresaLabel.AutoSize = true;
-            this.empresaLabel.Location = new System.Drawing.Point(14, 75);
-            this.empresaLabel.Name = "empresaLabel";
-            this.empresaLabel.Size = new System.Drawing.Size(52, 15);
-            this.empresaLabel.TabIndex = 8;
-            this.empresaLabel.Text = "Empresa";
+            empresaLabel.AutoSize = true;
+            empresaLabel.Location = new Point(14, 75);
+            empresaLabel.Name = "empresaLabel";
+            empresaLabel.Size = new Size(52, 15);
+            empresaLabel.TabIndex = 8;
+            empresaLabel.Text = "Empresa";
             // 
             // idLabel
             // 
-            this.idLabel.AutoSize = true;
-            this.idLabel.Location = new System.Drawing.Point(14, 16);
-            this.idLabel.Name = "idLabel";
-            this.idLabel.Size = new System.Drawing.Size(18, 15);
-            this.idLabel.TabIndex = 7;
-            this.idLabel.Text = "ID";
+            idLabel.AutoSize = true;
+            idLabel.Location = new Point(14, 16);
+            idLabel.Name = "idLabel";
+            idLabel.Size = new Size(18, 15);
+            idLabel.TabIndex = 7;
+            idLabel.Text = "ID";
             // 
             // empresaNameBox
             // 
-            this.empresaNameBox.Location = new System.Drawing.Point(14, 93);
-            this.empresaNameBox.Name = "empresaNameBox";
-            this.empresaNameBox.Size = new System.Drawing.Size(100, 23);
-            this.empresaNameBox.TabIndex = 5;
+            empresaNameBox.Location = new Point(14, 93);
+            empresaNameBox.Name = "empresaNameBox";
+            empresaNameBox.Size = new Size(100, 23);
+            empresaNameBox.TabIndex = 5;
             // 
             // ticketBox
             // 
-            this.ticketBox.Location = new System.Drawing.Point(139, 93);
-            this.ticketBox.Name = "ticketBox";
-            this.ticketBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.ticketBox.Size = new System.Drawing.Size(100, 23);
-            this.ticketBox.TabIndex = 2;
+            ticketBox.Location = new Point(139, 93);
+            ticketBox.Name = "ticketBox";
+            ticketBox.RightToLeft = RightToLeft.Yes;
+            ticketBox.Size = new Size(100, 23);
+            ticketBox.TabIndex = 2;
             // 
             // CancelButton
             // 
-            this.CancelButton.Location = new System.Drawing.Point(570, 260);
-            this.CancelButton.Name = "CancelButton";
-            this.CancelButton.Size = new System.Drawing.Size(75, 23);
-            this.CancelButton.TabIndex = 1;
-            this.CancelButton.Text = "Cancelar";
-            this.CancelButton.UseVisualStyleBackColor = true;
+            CancelButton.Location = new Point(570, 260);
+            CancelButton.Name = "CancelButton";
+            CancelButton.Size = new Size(75, 23);
+            CancelButton.TabIndex = 1;
+            CancelButton.Text = "Cancelar";
+            CancelButton.UseVisualStyleBackColor = true;
             // 
             // SaveButton
             // 
-            this.SaveButton.Location = new System.Drawing.Point(473, 260);
-            this.SaveButton.Name = "SaveButton";
-            this.SaveButton.Size = new System.Drawing.Size(75, 23);
-            this.SaveButton.TabIndex = 0;
-            this.SaveButton.Text = "Salvar";
-            this.SaveButton.UseVisualStyleBackColor = true;
+            SaveButton.Location = new Point(473, 260);
+            SaveButton.Name = "SaveButton";
+            SaveButton.Size = new Size(75, 23);
+            SaveButton.TabIndex = 0;
+            SaveButton.Text = "Salvar";
+            SaveButton.UseVisualStyleBackColor = true;
             // 
             // ativoLabel
             // 
-            this.ativoLabel.AutoSize = true;
-            this.ativoLabel.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.ativoLabel.Location = new System.Drawing.Point(4, 0);
-            this.ativoLabel.Name = "ativoLabel";
-            this.ativoLabel.Size = new System.Drawing.Size(75, 30);
-            this.ativoLabel.TabIndex = 4;
-            this.ativoLabel.Text = "Ativos";
+            ativoLabel.AutoSize = true;
+            ativoLabel.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
+            ativoLabel.Location = new Point(4, 0);
+            ativoLabel.Name = "ativoLabel";
+            ativoLabel.Size = new Size(75, 30);
+            ativoLabel.TabIndex = 4;
+            ativoLabel.Text = "Ativos";
             // 
             // buttonClose
             // 
-            this.buttonClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonClose.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.buttonClose.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.buttonClose.Location = new System.Drawing.Point(631, 6);
-            this.buttonClose.Name = "buttonClose";
-            this.buttonClose.Size = new System.Drawing.Size(26, 26);
-            this.buttonClose.TabIndex = 7;
-            this.buttonClose.Text = "x";
-            this.buttonClose.UseVisualStyleBackColor = false;
+            buttonClose.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            buttonClose.BackColor = SystemColors.ActiveCaption;
+            buttonClose.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            buttonClose.Location = new Point(631, 6);
+            buttonClose.Name = "buttonClose";
+            buttonClose.Size = new Size(26, 26);
+            buttonClose.TabIndex = 7;
+            buttonClose.Text = "x";
+            buttonClose.UseVisualStyleBackColor = false;
             // 
             // AtivoView
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.ClientSize = new System.Drawing.Size(661, 349);
-            this.Controls.Add(this.buttonClose);
-            this.Controls.Add(this.ativoLabel);
-            this.Controls.Add(tabControl1);
-            this.Name = "AtivoView";
+            AutoScaleDimensions = new SizeF(96F, 96F);
+            AutoScaleMode = AutoScaleMode.Dpi;
+            BackColor = SystemColors.ActiveCaption;
+            ClientSize = new Size(661, 349);
+            Controls.Add(buttonClose);
+            Controls.Add(ativoLabel);
+            Controls.Add(tabControl1);
+            Name = "AtivoView";
             tabControl1.ResumeLayout(false);
-            this.ativoListPage.ResumeLayout(false);
-            this.ativoListPage.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
-            this.editPage.ResumeLayout(false);
-            this.editPage.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.totalUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.idUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.valorUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.quantidadeUpDown)).EndInit();
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            ativoListPage.ResumeLayout(false);
+            ativoListPage.PerformLayout();
+            ((ISupportInitialize)dataGridView).EndInit();
+            editPage.ResumeLayout(false);
+            editPage.PerformLayout();
+            ((ISupportInitialize)totalUpDown).EndInit();
+            ((ISupportInitialize)idUpDown).EndInit();
+            ((ISupportInitialize)valorUpDown).EndInit();
+            ((ISupportInitialize)quantidadeUpDown).EndInit();
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         private void AssociateAndRaiseViewEvents()
@@ -465,8 +455,8 @@ namespace InvestiDuo.Views
             EditButton.Click += delegate
             {
                 EditEvent?.Invoke(this, EventArgs.Empty);
-                tabControl1.TabPages.Remove(editPage);
-                tabControl1.TabPages.Add(editPage);
+                this.tabControl1.TabPages.Remove(editPage);
+                this.tabControl1.TabPages.Add(editPage);
                 editPage.Text = "Editar ativo";
             };
 
@@ -509,7 +499,7 @@ namespace InvestiDuo.Views
             dataGridView.DataSource = assetList;
         }
 
-        private void TotalBox_KeyPress(object sender, KeyPressEventArgs e)
+        private void TotalBox_KeyPress(object? sender, KeyPressEventArgs e)
         {
             // Verify that the pressed key isn't CTRL or any non-numeric digit
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
@@ -542,13 +532,5 @@ namespace InvestiDuo.Views
             }
             return instance;
         }
-
-        //private void AddButton_Click(object sender, EventArgs e)
-        //{
-        //    AddEvent?.Invoke(this, EventArgs.Empty);
-        //    this.tabControl1.TabPages.Remove(editPage);
-        //    this.tabControl1.TabPages.Add(editPage);
-        //    editPage.Text = "Adicionar ativo";
-        //}
     }
 }

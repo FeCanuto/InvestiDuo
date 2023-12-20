@@ -9,8 +9,8 @@ namespace InvestiDuo.Views
             ButtonAtivos.Click += delegate { ShowAtivoView?.Invoke(this, EventArgs.Empty); };
         }
 
-        public event EventHandler ShowAtivoView;
-        public event EventHandler ShowOwnerView;
-        public event EventHandler ShowChartView;
+        public event EventHandler? ShowAtivoView;
+        public event EventHandler? ShowOwnerView;
+        public event EventHandler? ShowChartView;
     }
 }
