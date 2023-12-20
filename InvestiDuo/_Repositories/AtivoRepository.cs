@@ -21,7 +21,7 @@ namespace InvestiDuo._Repositories
                 command.CommandText = "Insert into Ativos values (@name, @ticket, @quantity, @value, @total, @data)";
                 command.Parameters.Add("@name", SqlDbType.NVarChar).Value = ativoModel.Name;
                 command.Parameters.Add("@ticket", SqlDbType.NVarChar).Value = ativoModel.Ticket;
-                command.Parameters.Add("@quantity", SqlDbType.Int).Value = ativoModel.Name;
+                command.Parameters.Add("@quantity", SqlDbType.NVarChar).Value = ativoModel.Quantity;
                 command.Parameters.Add("@value", SqlDbType.Decimal).Value = ativoModel.Value;
                 command.Parameters.Add("@total", SqlDbType.Decimal).Value = ativoModel.Total;
                 command.Parameters.Add("@data", SqlDbType.DateTime).Value = ativoModel.Date;
