@@ -53,7 +53,7 @@ namespace InvestiDuo._Repositories
                     where Ativo_Id = @id";
                 command.Parameters.Add("@name", SqlDbType.NVarChar).Value = ativoModel.Name;
                 command.Parameters.Add("@ticket", SqlDbType.NVarChar).Value = ativoModel.Ticket;
-                command.Parameters.Add("@quantity", SqlDbType.Int).Value = ativoModel.Name;
+                command.Parameters.Add("@quantity", SqlDbType.Int).Value = ativoModel.Quantity;
                 command.Parameters.Add("@value", SqlDbType.Decimal).Value = ativoModel.Value;
                 command.Parameters.Add("@total", SqlDbType.Decimal).Value = ativoModel.Total;
                 command.Parameters.Add("@data", SqlDbType.DateTime).Value = ativoModel.Date;
@@ -69,7 +69,7 @@ namespace InvestiDuo._Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "Select * from Ativos order by Ativo_Id desc";
+                command.CommandText = "Select * from Ativo order by Ativo_Id desc";
                 using (var reader = command.ExecuteReader())
                 {
                     while (reader.Read())
@@ -100,7 +100,7 @@ namespace InvestiDuo._Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "Select * from Ativos " +
+                command.CommandText = "Select * from Ativo " +
                     "where Ativo_Id = @id or Ativo_Name like @name+'%' order by Ativo_Id desc";
                 command.Parameters.Add("@id", SqlDbType.Int).Value = assetId;
                 command.Parameters.Add("@name", SqlDbType.NVarChar).Value = assetName;
